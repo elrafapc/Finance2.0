@@ -22,7 +22,7 @@ public class RegisterIncomeServiceTest {
         insertNewTransaction.insertRegister(new Transaction("Salario 2", new BigDecimal("5000"), LocalDate.now(), register, costType));
 
         BigDecimal expectedValue = new BigDecimal("10000");
-        BigDecimal sumValueEntry = insertNewTransaction.getIncomeSumByValueType(register);
+        BigDecimal sumValueEntry = insertNewTransaction.getSumByValueType(register);
 
         assertEquals(expectedValue, sumValueEntry);
     }
@@ -36,7 +36,7 @@ public class RegisterIncomeServiceTest {
         insertNewTransaction.insertRegister(new Transaction("VA/VR", new BigDecimal("1000"), LocalDate.now(), register, costType));
 
         BigDecimal expectedValue = new BigDecimal("1000");
-        BigDecimal sumValues = insertNewTransaction.getIncomeSumByValueType(register);
+        BigDecimal sumValues = insertNewTransaction.getSumByValueType(register);
 
         assertEquals(expectedValue, sumValues);
     }
@@ -50,7 +50,7 @@ public class RegisterIncomeServiceTest {
         insertNewTransaction.insertRegister(new Transaction("VA/VR", new BigDecimal("1000"), LocalDate.now(), RegisterType.BENEFIT, costType));
 
         BigDecimal expectedValue = new BigDecimal("6000");
-        BigDecimal sumValues = insertNewTransaction.getSumAllIncomes();
+        BigDecimal sumValues = insertNewTransaction.getSumByCostType(costType);
 
         assertEquals(expectedValue, sumValues);
     }

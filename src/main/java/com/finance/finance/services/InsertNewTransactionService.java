@@ -16,7 +16,7 @@ public class InsertNewTransactionService {
         register.add(transaction);
     }
 
-    public BigDecimal getIncomeSumByValueType(RegisterType registerType) {
+    public BigDecimal getSumByValueType(RegisterType registerType) {
         BigDecimal value = BigDecimal.ZERO;
 
         for(Transaction transaction : this.register){
@@ -29,11 +29,11 @@ public class InsertNewTransactionService {
         return value;
     }
 
-    public BigDecimal getSumAllIncomes() {
+    public BigDecimal getSumByCostType(CostType costType) {
         BigDecimal value = BigDecimal.ZERO;
 
         for(Transaction transaction : this.register){
-            if(transaction.getCostType().equals(CostType.INCOME)){
+            if(transaction.getCostType().equals(costType)){
                 value = value.add(
                         transaction.getRegisterValue());
             }
