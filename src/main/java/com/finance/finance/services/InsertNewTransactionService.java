@@ -16,6 +16,22 @@ public class InsertNewTransactionService {
         register.add(transaction);
     }
 
+    public BigDecimal getFinalRegisterBalance() {
+        BigDecimal valueIncome = BigDecimal.ZERO;
+        BigDecimal valueExpense = BigDecimal.ZERO;
+
+        for(Transaction transaction : this.register){
+            if(transaction.getCostType().equals(CostType.INCOME)){
+                valueIncome = valueIncome.add(
+                        transaction.getRegisterValue());
+            }else{
+                valueExpense = valueExpense.add(
+                        transaction.getRegisterValue());
+            }
+        }
+        return valueIncome.subtract(valueExpense);
+    }
+
     public BigDecimal getSumByValueType(RegisterType registerType) {
         BigDecimal value = BigDecimal.ZERO;
 
