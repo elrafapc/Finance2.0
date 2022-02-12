@@ -35,7 +35,7 @@ public class AllRegistersServiceTest {
 
         insertNewTransaction.insertExpense(new Transaction("Poupança", new BigDecimal("2000"), LocalDate.now(), RegisterType.SAVINGS_ACCOUNT, CostType.SAVING), insertNewTransaction.getSumByRegisterType(RegisterType.VALUE_ENTRY));
 
-        BigDecimal expectedValue = new BigDecimal("5700");
+        BigDecimal expectedValue = new BigDecimal("5400");
         BigDecimal sumValueEntry = insertNewTransaction.getIncomeSubtractExpense();
 
         assertEquals(expectedValue, sumValueEntry);
@@ -58,14 +58,12 @@ public class AllRegistersServiceTest {
     @Test
     public void should_return_an_exception_by_high_spend(){
         TransactionController insertNewTransaction = new TransactionController();
-        Transaction transaction = new Transaction("Conta de luz", new BigDecimal("4000"), LocalDate.now(), RegisterType.FIXED_EXPENSE, CostType.EXPENSE);
 
         insertNewTransaction.insertIncome(new Transaction("Salario 1", new BigDecimal("5000"), LocalDate.now(), RegisterType.VALUE_ENTRY, CostType.INCOME));
-        insertNewTransaction.insertExpense(transaction, insertNewTransaction.getSumByRegisterType(RegisterType.VALUE_ENTRY));
 
-        BigDecimal sumValueEntry = insertNewTransaction.getIncomeSubtractExpense();
+        Transaction transaction = new Transaction("Conta de luz", new BigDecimal("4000"), LocalDate.now(), RegisterType.FIXED_EXPENSE, CostType.EXPENSE);
 
-        assertThrows(IllegalArgumentException.class, ()-> insertNewTransaction.insertExpense(transaction,sumValueEntry));
+        assertThrows(IllegalArgumentException.class, ()-> insertNewTransaction.insertExpense(transaction, insertNewTransaction.getSumByRegisterType(RegisterType.VALUE_ENTRY)));
     }
 
 

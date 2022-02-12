@@ -19,10 +19,11 @@ public class TransactionController implements TransactionRepository {
 
     public void insertExpense(Transaction transaction, BigDecimal sumValueEntries) {
         RegisterType registerType = transaction.getRegisterType();
-        BigDecimal intendedExpense = getPercentageToExpenseByRegisterType(getSumByRegisterType(registerType),registerType);
+        BigDecimal valueToExpenseByRegisterType = getPercentageToExpenseByRegisterType(sumValueEntries,registerType);
+        BigDecimal sumByRegisterType = getSumByRegisterType(registerType);
+        sumByRegisterType = sumByRegisterType.add(transaction.getRegisterValue());
 
-        int expenseGreaterThanIncome = transaction.getRegisterValue().compareTo(intendedExpense);
-        BigDecimal registerValue = transaction.getRegisterValue();
+        int expenseGreaterThanIncome = sumByRegisterType.compareTo(valueToExpenseByRegisterType);
 
         if( expenseGreaterThanIncome == 1){
             throw new IllegalArgumentException("Valor excede o planejado");
