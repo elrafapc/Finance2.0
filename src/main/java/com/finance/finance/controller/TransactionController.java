@@ -1,22 +1,36 @@
-package com.finance.finance.services;
+package com.finance.finance.controller;
 
-import com.finance.finance.entities.CostType;
-import com.finance.finance.entities.RegisterType;
-import com.finance.finance.entities.Transaction;
+import com.finance.finance.entity.CostType;
+import com.finance.finance.entity.RegisterType;
+import com.finance.finance.entity.Transaction;
+import com.finance.finance.repository.TransactionRepository;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InsertNewTransactionService {
+public class TransactionController implements TransactionRepository {
 
     private List<Transaction> register = new ArrayList<>();
 
-    public void insertRegister(Transaction transaction) {
+    public void insertIncome(Transaction transaction) {
         register.add(transaction);
     }
 
-    public BigDecimal getFinalRegisterBalance() {
+    public void insertExpense(Transaction transaction, BigDecimal sumValueEntries) {
+        RegisterType registerType = transaction.getRegisterType();
+        BigDecimal intendedExpense = getPercentageToExpenseByRegisterType(getSumByRegisterType(registerType),registerType);
+
+        int expenseGreaterThanIncome = transaction.getRegisterValue().compareTo(intendedExpense);
+        BigDecimal registerValue = transaction.getRegisterValue();
+
+        if( expenseGreaterThanIncome == 1){
+            throw new IllegalArgumentException("Valor excede o planejado");
+        }else{
+            register.add(transaction);}
+    }
+
+    public BigDecimal getIncomeSubtractExpense() {
         BigDecimal valueIncome = BigDecimal.ZERO;
         BigDecimal valueExpense = BigDecimal.ZERO;
 
@@ -32,7 +46,7 @@ public class InsertNewTransactionService {
         return valueIncome.subtract(valueExpense);
     }
 
-    public BigDecimal getSumByValueType(RegisterType registerType) {
+    public BigDecimal getSumByRegisterType(RegisterType registerType) {
         BigDecimal value = BigDecimal.ZERO;
 
         for(Transaction transaction : this.register){
@@ -41,7 +55,6 @@ public class InsertNewTransactionService {
                         transaction.getRegisterValue());
             }
         }
-
         return value;
     }
 
@@ -54,7 +67,10 @@ public class InsertNewTransactionService {
                         transaction.getRegisterValue());
             }
         }
-
         return value;
+    }
+
+    public BigDecimal getPercentageToExpenseByRegisterType(BigDecimal sumByValueType, RegisterType registerType) {
+         return registerType.destinedPercentage(sumByValueType);
     }
 }

@@ -1,4 +1,4 @@
-package com.finance.finance.entities;
+package com.finance.finance.entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
