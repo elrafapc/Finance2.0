@@ -2,7 +2,7 @@ package com.finance.finance;
 import com.finance.finance.entity.CostType;
 import com.finance.finance.entity.RegisterType;
 import com.finance.finance.entity.Transaction;
-import com.finance.finance.controller.TransactionController;
+import com.finance.finance.controller.TransactionControllerByMemory;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -11,11 +11,11 @@ import java.time.LocalDate;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class AllRegistersServiceTest {
+public class TransactionControllerByMemoryExpenseTest {
 
     @Test
     public void should_insert_all_registers_and_return_final_balance(){
-        TransactionController insertNewTransaction = new TransactionController();
+        TransactionControllerByMemory insertNewTransaction = new TransactionControllerByMemory();
 
         insertNewTransaction.insertIncome(new Transaction("Salario 1", new BigDecimal("5000"), LocalDate.now(), RegisterType.VALUE_ENTRY, CostType.INCOME));
         insertNewTransaction.insertIncome(new Transaction("Salario 2", new BigDecimal("5000"), LocalDate.now(), RegisterType.VALUE_ENTRY, CostType.INCOME));
@@ -43,7 +43,7 @@ public class AllRegistersServiceTest {
 
     @Test
     public void should_return_the_percentual_available_considering_the_value_entry_income(){
-        TransactionController insertNewTransaction = new TransactionController();
+        TransactionControllerByMemory insertNewTransaction = new TransactionControllerByMemory();
         RegisterType valueEntry = RegisterType.VALUE_ENTRY;
 
         insertNewTransaction.insertIncome(new Transaction("Salario 1", new BigDecimal("5000"), LocalDate.now(), valueEntry, CostType.INCOME));
@@ -57,7 +57,7 @@ public class AllRegistersServiceTest {
 
     @Test
     public void should_return_an_exception_by_high_spend(){
-        TransactionController insertNewTransaction = new TransactionController();
+        TransactionControllerByMemory insertNewTransaction = new TransactionControllerByMemory();
 
         insertNewTransaction.insertIncome(new Transaction("Salario 1", new BigDecimal("5000"), LocalDate.now(), RegisterType.VALUE_ENTRY, CostType.INCOME));
 

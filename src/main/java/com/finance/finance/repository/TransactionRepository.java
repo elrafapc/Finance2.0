@@ -15,6 +15,12 @@ public interface TransactionRepository {
 
     public void insertExpense(Transaction newRegister, BigDecimal sumValueEntries);
 
+    public void removeTransaction(String registerName);
+
+    public void editTransaction(String register, Transaction dataToUpdate);
+
+    public void listTransactions();
+
     public BigDecimal getIncomeSubtractExpense();
 
     public BigDecimal getSumByRegisterType(RegisterType registerType);

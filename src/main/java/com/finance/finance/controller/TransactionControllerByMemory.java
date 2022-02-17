@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TransactionController implements TransactionRepository {
+public class TransactionControllerByMemory implements TransactionRepository {
 
     private List<Transaction> register = new ArrayList<>();
 
@@ -29,6 +29,45 @@ public class TransactionController implements TransactionRepository {
             throw new IllegalArgumentException("Valor excede o planejado");
         }else{
             register.add(transaction);}
+    }
+
+    @Override
+    public void removeTransaction(String registerName) {
+        Transaction transaction;
+        for(int i=0; i<this.register.size();i++){
+            transaction = this.register.get(i);
+
+            if (transaction.getDescription() == registerName){
+                this.register.remove(i);
+            }
+        }
+    }
+
+    @Override
+    public void editTransaction(String registerToEdit, Transaction dataToUpdate) {
+        Transaction transaction;
+        for(int i=0; i<this.register.size();i++){
+            transaction = this.register.get(i);
+
+            if (transaction.getDescription() == registerToEdit){
+                this.register.set(i,dataToUpdate);
+            }
+        }
+    }
+
+    @Override
+    public void listTransactions() {
+        for(Transaction transaction : this.register){
+            System.out.println(transaction.getDescription() +
+                    " | " + transaction.getRegisterValue() +
+                    " | " + transaction.getDate() +
+                    " | " + transaction.getRegisterType() +
+                    " | " + transaction.getCostType());
+        }
+        System.out.println("Total de Receitas: " + getSumByCostType(CostType.INCOME));
+        System.out.println("Total de Despesas: " + getSumByCostType(CostType.EXPENSE));
+        System.out.println("Balanço Final: " + getIncomeSubtractExpense());
+
     }
 
     public BigDecimal getIncomeSubtractExpense() {
