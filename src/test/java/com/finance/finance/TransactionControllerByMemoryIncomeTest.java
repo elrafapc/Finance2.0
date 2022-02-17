@@ -1,8 +1,8 @@
 package com.finance.finance;
+import com.finance.finance.controller.TransactionCRUDControllerByMemory;
 import com.finance.finance.entity.CostType;
 import com.finance.finance.entity.RegisterType;
 import com.finance.finance.entity.Transaction;
-import com.finance.finance.controller.TransactionControllerByMemory;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -14,7 +14,7 @@ public class TransactionControllerByMemoryIncomeTest {
 
     @Test
     public void should_insert_new_value_entry(){
-        TransactionControllerByMemory insertNewTransaction = new TransactionControllerByMemory();
+        TransactionCRUDControllerByMemory insertNewTransaction = new TransactionCRUDControllerByMemory();
         RegisterType register = RegisterType.VALUE_ENTRY;
         CostType costType = CostType.INCOME;
 
@@ -29,7 +29,7 @@ public class TransactionControllerByMemoryIncomeTest {
 
     @Test
     public void should_insert_new_benefit(){
-        TransactionControllerByMemory insertNewTransaction = new TransactionControllerByMemory();
+        TransactionCRUDControllerByMemory insertNewTransaction = new TransactionCRUDControllerByMemory();
         RegisterType register = RegisterType.BENEFIT;
         CostType costType = CostType.INCOME;
 
@@ -43,7 +43,7 @@ public class TransactionControllerByMemoryIncomeTest {
 
     @Test
     public void should_sum_all_incomes(){
-        TransactionControllerByMemory insertNewTransaction = new TransactionControllerByMemory();
+        TransactionCRUDControllerByMemory insertNewTransaction = new TransactionCRUDControllerByMemory();
         CostType costType = CostType.INCOME;
 
         insertNewTransaction.insertIncome(new Transaction("Salario 1", new BigDecimal("5000"), LocalDate.now(), RegisterType.VALUE_ENTRY, costType));

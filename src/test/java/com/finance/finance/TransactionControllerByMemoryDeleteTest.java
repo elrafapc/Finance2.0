@@ -1,6 +1,6 @@
 package com.finance.finance;
 
-import com.finance.finance.controller.TransactionControllerByMemory;
+import com.finance.finance.controller.TransactionCRUDControllerByMemory;
 import com.finance.finance.entity.CostType;
 import com.finance.finance.entity.RegisterType;
 import com.finance.finance.entity.Transaction;
@@ -15,7 +15,7 @@ public class TransactionControllerByMemoryDeleteTest {
 
     @Test
     public void should_remove_some_register(){
-        TransactionControllerByMemory controller = new TransactionControllerByMemory();
+        TransactionCRUDControllerByMemory controller = new TransactionCRUDControllerByMemory();
         RegisterType register = RegisterType.VALUE_ENTRY;
         CostType costType = CostType.INCOME;
 

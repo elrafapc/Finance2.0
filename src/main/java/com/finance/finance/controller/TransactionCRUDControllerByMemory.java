@@ -3,20 +3,23 @@ package com.finance.finance.controller;
 import com.finance.finance.entity.CostType;
 import com.finance.finance.entity.RegisterType;
 import com.finance.finance.entity.Transaction;
-import com.finance.finance.repository.TransactionRepository;
+import com.finance.finance.repository.TransactionCRUDRepository;
+import com.finance.finance.repository.TransactionSumRepository;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TransactionControllerByMemory implements TransactionRepository {
+public class TransactionCRUDControllerByMemory implements TransactionCRUDRepository, TransactionSumRepository {
 
     private List<Transaction> register = new ArrayList<>();
 
+    @Override
     public void insertIncome(Transaction transaction) {
         register.add(transaction);
     }
 
+    @Override
     public void insertExpense(Transaction transaction, BigDecimal sumValueEntries) {
         RegisterType registerType = transaction.getRegisterType();
         BigDecimal valueToExpenseByRegisterType = getPercentageToExpenseByRegisterType(sumValueEntries,registerType);
